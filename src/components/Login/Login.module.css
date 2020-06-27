@@ -1,0 +1,10 @@
+.row {
+  display: flex;
+  flex: row wrap;
+  margin: 10rem auto;
+  justify-content: center;
+  align-items: center;
+}
+.rowForm .input {
+  width: 200%;
+}
