@@ -24,13 +24,13 @@ export default function Login() {
           refreshToken: refreshToken,
         },
       });
-      localStorage.setItem("tokens", { refreshToken, accessToken });
+      // localStorage.setItem("tokens", { refreshToken, accessToken });
     } catch (error) {
       console.log(error.message);
     }
   };
-  const tokens = useSelector((state) => state.taskReducer.tokens);
-  // const tokens = localStorage.getItem('tokens');
+  const tokens = useSelector((state) => state.taskReducer.tokens); // comment this line if you want to fetch login tokens from local storage
+  // const tokens = localStorage.getItem('tokens'); // un-comment this line if you want to perserve login info upon refresh
   return !tokens.accessToken ? (
     <div className={styles.row}>
       <h3>{tokens.accessToken}</h3>
