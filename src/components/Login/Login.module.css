@@ -1,10 +1,21 @@
-.row {
+.container {
   display: flex;
   flex: row wrap;
   margin: 10rem auto;
   justify-content: center;
   align-items: center;
+  font-size: 1.5rem;
 }
-.rowForm .input {
-  width: 200%;
+
+.inputfield {
+  height: 4rem;
+  width: 15rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: center;
 }
