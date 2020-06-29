@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "./SendInvitation.module.css";
-import { sendInvitationAPI } from "../../api";
-import { useSelector } from "react-redux";
+import React from 'react';
+import styles from './SendInvitation.module.css';
+import { sendInvitationAPI } from '../../api';
+import { useSelector } from 'react-redux';
 
 export default function () {
   const invites = useSelector((state) => state.taskReducer.invites);
@@ -11,7 +11,7 @@ export default function () {
     try {
       const response = await sendInvitationAPI(invites, tokens.accessToken);
       if (response.status === 200) {
-        return alert("Invitation Sent");
+        return alert('Invitation Sent');
       }
       alert(response.statusText);
     } catch (error) {
@@ -22,13 +22,13 @@ export default function () {
   };
   if (invites.length === 0) return <div></div>;
   return (
-    <section className={styles.container}>
+    <div className={styles.container}>
       <button
         className='btn btn-lg btn-primary'
         onClick={(e) => sendInvitationToAll(e)}
       >
         Send Invitation
       </button>
-    </section>
+    </div>
   );
 }

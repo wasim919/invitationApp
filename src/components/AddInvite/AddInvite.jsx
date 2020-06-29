@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import styles from './AddInvite.module.css';
+import cx from 'classnames';
 
 export default function () {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState('');
+  const [mobile, setMobile] = useState('');
 
   const checkEmail = (email) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -23,19 +25,19 @@ export default function () {
   const addMore = (e) => {
     e.preventDefault();
     if (email.length === 0 || mobile.length === 0) {
-      return alert("Please enter email and mobile number");
+      return alert('Please enter email and mobile number');
     }
-    let message = "";
+    let message = '';
     let flag = 0;
     if (!checkEmail(email)) {
-      message += "You have entered an invalid Email id";
+      message += 'You have entered an invalid Email id';
       flag = 1;
     }
     if (!checkMobileNumber(mobile)) {
       if (message.length === 0) {
-        message += "You have entered an invalid mobile number!";
+        message += 'You have entered an invalid mobile number!';
       } else {
-        message += " and mobile number!";
+        message += ' and mobile number!';
       }
       flag = 1;
     }
@@ -43,14 +45,14 @@ export default function () {
       return alert(message);
     }
     dispatch({
-      type: "ADD_INVITE",
+      type: 'ADD_INVITE',
       payload: {
         email,
         mobile,
       },
     });
-    setEmail("");
-    setMobile("");
+    setEmail('');
+    setMobile('');
     return true;
   };
 
@@ -61,7 +63,7 @@ export default function () {
           <label htmlFor='Email'>Email</label>
           <input
             type='email'
-            className='form-control'
+            className={cx('form-control', styles.inputfield)}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
@@ -70,12 +72,15 @@ export default function () {
           <label htmlFor='Mobile'>Mobile</label>
           <input
             type='text'
-            className='form-control'
+            className={cx('form-control', styles.inputfield)}
             onChange={(e) => setMobile(e.target.value)}
             value={mobile}
           />
         </div>
-        <button className='btn btn-primary' onClick={(e) => addMore(e)}>
+        <button
+          className={cx('btn btn-primary', styles.addMoreButton)}
+          onClick={(e) => addMore(e)}
+        >
           Add More
         </button>
       </form>

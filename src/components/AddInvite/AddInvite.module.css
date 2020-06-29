@@ -1,3 +1,16 @@
 .addMoreButton {
-  margin: 3rem auto;
+  display: flex;
+  justify-content: center;
+  height: 4rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  width: 5rem;
+}
+
+.inputfield {
+  height: 3rem;
+  width: 50rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  margin: 0;
 }
