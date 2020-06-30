@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "./Invites.module.css";
-import { Invite } from "../";
-import { useSelector } from "react-redux";
+import React from 'react';
+import styles from './Invites.module.css';
+import { Invite } from '../';
+import { useSelector } from 'react-redux';
 
 export default function () {
   const invites = useSelector((state) => state.taskReducer.invites);

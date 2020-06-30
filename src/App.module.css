@@ -1,7 +1,7 @@
 body {
   box-sizing: border-box;
   margin: 0;
-  background-color: lightcyan;
+  background-color: rgb(240, 247, 247);
   font-family: 'Oswald', sans-serif;
   font-size: 1.9rem;
 }

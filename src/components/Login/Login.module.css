@@ -19,3 +19,7 @@
   display: flex;
   justify-content: center;
 }
+
+.cardBody {
+  background-color: rgb(227, 243, 225);
+}

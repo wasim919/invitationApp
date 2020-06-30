@@ -14,6 +14,7 @@ export default function () {
     }
     return false;
   };
+
   const checkMobileNumber = (mobile) => {
     let phoneno = /^\d{10}$/;
     if (mobile.match(phoneno)) {
@@ -22,6 +23,7 @@ export default function () {
       return false;
     }
   };
+
   const addMore = (e) => {
     e.preventDefault();
     if (email.length === 0 || mobile.length === 0) {
