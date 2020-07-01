@@ -43,30 +43,20 @@ export default function Login() {
     }
 
     try {
-      // const { accessToken, refreshToken } = await loginAPI({
-      //   username,
-      //   password,
-      // });
-      const {
-        data: { token },
-      } = await loginAPI({
+      const { accessToken, refreshToken } = await loginAPI({
         username,
         password,
       });
-      // dispatch({
-      //   type: 'LOGIN',
-      //   payload: {
-      //     accessToken: accessToken,
-      //     refreshToken: refreshToken,
-      //   },
-      // });
       isLogged = true;
       dispatch({
         type: 'LOGIN',
         payload: {
           username,
           isLogged,
-          tokens: token,
+          tokens: {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          },
         },
       });
     } catch (error) {

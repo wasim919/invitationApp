@@ -5,13 +5,12 @@ import styles from './Logout.module.css';
 export default function (props) {
   const dispatch = useDispatch();
   const logout = () => {
-    localStorage.removeItem('isLogged');
-    localStorage.removeItem('tokens');
     dispatch({
       type: 'LOGOUT',
       payload: {
         isLogged: false,
         tokens: {},
+        invites: [],
       },
     });
   };
