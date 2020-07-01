@@ -16,6 +16,7 @@ export const loginAPI = async (user) => {
       accessToken: response.data.access,
       refreshToken: response.data.refresh,
     };
+    // return response;
   } catch (err) {
     throw new Error('Invalid Credentials');
   }

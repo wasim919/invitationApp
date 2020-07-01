@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Login.module.css';
-import { Invites, AddInvite, SendInvitation, Logout } from '../';
+import { Invites, AddInvite, SendInvitation, Logout } from '..';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginAPI } from '../../api';
 import cx from 'classnames';

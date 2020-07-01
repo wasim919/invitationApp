@@ -1,115 +1,94 @@
-const initialState = {
-  tokens: {},
-  username: '',
-  isLogged: false,
-  invites: [],
-  nextId: 0,
-};
-
 const cleanLocalStorage = () => {
   localStorage.removeItem('tokens');
   localStorage.removeItem('username');
   localStorage.removeItem('isLogged');
 };
 
-// const storeInvitesInLocalStorage = (newInvite) => {
-//   const newData = { ...newInvite };
-//   let newUserData = [];
-//   if (localStorage.getItem('loggedInvites') == null) {
-//     newUserData.push(newData);
-//   } else {
-//     newUserData = JSON.parse(localStorage.getItem('loggedInvites'));
-//     newUserData.push(newData);
-//   }
-//   console.log(newUserData);
-//   localStorage.setItem('loggedInvites', JSON.stringify(newUserData));
-// };
-
-// const storeUserInfoWithInvites = () => {
-//   let modifiedUserData = [];
-
-//   const username = localStorage.getItem('username');
-
-// if (username != null) {
-//   if (localStorage.getItem('userData') != null) {
-//     modifiedUserData = JSON.parse(localStorage.getItem('userData'));
-//   }
-//   const loggedInvites = JSON.parse(localStorage.getItem('loggedInvites'));
-//   if (loggedInvites != null) {
-//     modifiedUserData.push({
-//       username,
-//       invites: [...loggedInvites],
-//     });
-//   }
-
-//     cleanLocalStorage();
-
-//     localStorage.setItem('userData', JSON.stringify(modifiedUserData));
-//   }
-// };
-
 const removeItemInLocalStorage = (index) => {
   let newInvites = [];
   let newUserData = [];
+  let oldUsersData = [];
   if (localStorage.getItem('userData') != null) {
     let flag = 1;
     const username = localStorage.getItem('username');
     const userData = JSON.parse(localStorage.getItem('userData'));
+
     localStorage.removeItem('userData');
     for (let i = 0; i < userData.length; ++i) {
       flag = 1;
       if (userData[i].username === username) {
+        // console.log('hello in');
+        // console.log(userData[i].username);
+        // console.log(username);
+        // console.log('hello out');
         for (let j = 0; j < userData[i].invites.length; ++j) {
           if (userData[i].invites[j].index !== index) {
             flag = 0;
             newInvites.push(userData[i].invites[j]);
           }
         }
-        if (flag == 0) {
+        if (flag === 0) {
           newUserData.push({
             username: username,
             invites: newInvites,
           });
           break;
         }
+      } else {
+        oldUsersData.push(userData[i]);
       }
     }
-    console.log(newInvites);
-    console.log('hello');
-    console.log(newUserData);
-    if (newUserData.length === 0) {
+
+    if (newUserData.length === 0 && oldUsersData.length === 0) {
       localStorage.removeItem('userData');
       return;
     }
-    localStorage.setItem('userData', JSON.stringify(newUserData));
+    // console.log(newUserData);
+    // console.log(index);
+    // console.log(oldUsersData);
+    localStorage.setItem(
+      'userData',
+      JSON.stringify([...oldUsersData, ...newUserData])
+    );
   }
   return;
 };
 
-const storeInviteInLocalStorage = (invite) => {
+const storeInviteInLocalStorage = (invites) => {
   const username = localStorage.getItem('username');
-  const newInvite = [...invite];
-  console.log(newInvite);
+  const newInvites = [...invites];
+  // console.log(newInvites);
   let modifiedUserData = [];
   let flag = 1;
   if (localStorage.getItem('userData') != null) {
     modifiedUserData = JSON.parse(localStorage.getItem('userData'));
     localStorage.removeItem('userData');
     for (let i = 0; i < modifiedUserData.length; ++i) {
-      if (modifiedUserData[i].username == username) {
+      if (modifiedUserData[i].username === username) {
         flag = 0;
-        modifiedUserData[i].invites = newInvite;
+        modifiedUserData[i].invites = newInvites;
         break;
       }
+    }
+    if (flag === 1) {
+      modifiedUserData.push({ username, invites: newInvites });
     }
   } else {
     modifiedUserData.push({
       username,
-      invites: newInvite,
+      invites: newInvites,
     });
   }
-  console.log(modifiedUserData);
+  // console.log(modifiedUserData);
   localStorage.setItem('userData', JSON.stringify(modifiedUserData));
+};
+
+const initialState = {
+  tokens: {},
+  username: '',
+  isLogged: false,
+  invites: [],
+  nextId: 0,
 };
 
 const taskReducer = (state = initialState, action) => {

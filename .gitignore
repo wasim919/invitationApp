@@ -6,6 +6,9 @@
 .pnp.js
 /.pnp.js
 
+# Local login
+/src/components/Login/Login2.jsx
+
 # testing
 /coverage
 
