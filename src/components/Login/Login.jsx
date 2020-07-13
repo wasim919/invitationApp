@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './Login.module.css';
-import { Invites, AddInvite, SendInvitation, Logout } from '..';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginAPI } from '../../api';
 import cx from 'classnames';
 

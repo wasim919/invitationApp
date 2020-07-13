@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styles from './Logout.module.css';
+import cx from 'classnames';
 
 export default function (props) {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function (props) {
     history.push('/');
   };
   return (
-    <div className='container'>
+    <div className={cx('container', styles.shiftRight)}>
       <div className={styles.logoutButton}>
         <button className='btn btn-danger btn-lg' onClick={(e) => logout()}>
           Logout
