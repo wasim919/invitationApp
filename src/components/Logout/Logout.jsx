@@ -9,8 +9,8 @@ export default function (props) {
       type: 'LOGOUT',
       payload: {
         isLogged: false,
-        tokens: {},
-        invites: [],
+        token: {},
+        posts: [],
       },
     });
   };

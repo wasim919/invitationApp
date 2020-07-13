@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex: row wrap;
-  margin: 10rem auto;
+  margin: 5rem auto;
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
@@ -23,7 +23,6 @@
 .card {
   width: 30rem;
 }
-
 .cardBody {
   background-color: rgb(227, 243, 225);
 }
