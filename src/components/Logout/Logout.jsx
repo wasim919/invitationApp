@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styles from './Logout.module.css';
 
 export default function (props) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const logout = () => {
     dispatch({
       type: 'LOGOUT',
@@ -13,6 +15,7 @@ export default function (props) {
         posts: [],
       },
     });
+    history.push('/');
   };
   return (
     <div className='container'>
