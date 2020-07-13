@@ -39,7 +39,6 @@ export const loginAPI = async (user) => {
 export const fetchLoggedUser = async () => {
   let modifiedUrl = url;
   let token = JSON.parse(localStorage.getItem('token'));
-  console.log(token);
   let headerToken = `Bearer ${token}`;
   modifiedUrl = `${url}/auth/me`;
   try {
@@ -48,7 +47,6 @@ export const fetchLoggedUser = async () => {
         Authorization: headerToken,
       },
     });
-    console.log(response.data);
     return response.data;
   } catch (err) {
     throw new Error('Not Authorized');
@@ -88,22 +86,4 @@ export const removePost = async (id) => {
   } catch (err) {
     throw new Error('Not Authorized');
   }
-};
-
-export const sendInvitationAPI = async (invites, token) => {
-  //   let modifiedUrl = url;
-  //   console.log(token.length);
-  //   let headerToken = `Bearer ${token}`;
-  //   modifiedUrl = `${url}/accounts/send_invitation/`;
-  //   try {
-  //     const response = await axios.post(modifiedUrl, invites, {
-  //       headers: {
-  //         Authorization: headerToken,
-  //       },
-  //     });
-  //     console.log(response);
-  //     return response;
-  //   } catch (err) {
-  //     throw new Error('Not Authorized');
-  //   }
 };

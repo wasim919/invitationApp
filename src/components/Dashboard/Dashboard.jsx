@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Logout } from '../../components';
 import { fetchLoggedUser, fetchPosts } from '../../api';
-import { Posts } from '../../components';
+import { Posts, Connections } from '../../components';
 
 export default function Dashboard() {
   const [userData, setUserData] = useState({});
-
   const dispatch = useDispatch();
+
   useEffect(() => {
     (async function () {
       try {
@@ -15,6 +15,10 @@ export default function Dashboard() {
           data: { _id, username, email, followers, following },
         } = await fetchLoggedUser();
         const data = { _id, username, email, followers, following };
+        // console.log('olleh');
+        // console.log(data);
+        // console.log('hello');
+        setUserData(data);
         dispatch({
           type: 'SET_USER_DETAILS',
           payload: {
@@ -28,7 +32,6 @@ export default function Dashboard() {
             posts: fetchedData.data,
           },
         });
-        setUserData(data);
       } catch (error) {
         alert(error.message);
         console.log(error.message);
@@ -55,7 +58,6 @@ export default function Dashboard() {
         </li>
         <li className='nav-item'>
           <a
-            href='#followers'
             className='nav-link'
             id='followers-tab'
             data-toggle='tab'
@@ -97,7 +99,7 @@ export default function Dashboard() {
           role='tabpanel'
           aria-labelledby='followers-tab'
         >
-          ...
+          {/* <Connections connections={userData.followers} follower={true} /> */}
         </div>
         <div
           class='tab-pane fade'
@@ -105,7 +107,7 @@ export default function Dashboard() {
           role='tabpanel'
           aria-labelledby='following-tab'
         >
-          ...
+          {/* <Connections connections={userData.following} follower={false} /> */}
         </div>
       </div>
     </div>
