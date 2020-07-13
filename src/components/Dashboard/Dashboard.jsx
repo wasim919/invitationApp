@@ -35,49 +35,6 @@ export default function Dashboard() {
       }
     })();
   }, []);
-  // useEffect(() => {
-  //   (async function () {
-  //     try {
-  //       setTimeout(() => {}, 1000);
-  //       console.log('hello');
-  //       console.log(userData);
-  //       console.log('hello');
-  //       const data = await fetchPosts(userData._id);
-  //       console.log(data);
-  //       // dispatch({
-  //       //   type: 'SET_USER_DETAILS',
-  //       //   payload: {
-  //       //     ...data,
-  //       //   },
-  //       // });
-  //       // setUserData(data);
-  //     } catch (error) {
-  //       alert(error.message);
-  //       console.log(error.message);
-  //     }
-  //   })();
-  // }, []);
-  // useEffect(() => {
-  //   (async function () {
-  //     try {
-  //       const {
-  //         data: { username, email, followers, following },
-  //       } = await fetchLoggedUser();
-  //       const data = { username, email, followers, following };
-  //       console.log(data);
-  //       dispatch({
-  //         type: 'SET_USER_DETAILS',
-  //         payload: {
-  //           ...data,
-  //         },
-  //       });
-  //       setUserData(data);
-  //     } catch (error) {
-  //       alert(error.message);
-  //       console.log(error.message);
-  //     }
-  //   })();
-  // }, []);
   return (
     <div className='container'>
       <h2>Hi {userData.username}, Welcome to the dashboard</h2>

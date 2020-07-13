@@ -73,6 +73,23 @@ export const fetchPosts = async (id) => {
   }
 };
 
+export const removePost = async (id) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/posts/${id}`;
+  try {
+    const response = await axios.delete(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
+
 export const sendInvitationAPI = async (invites, token) => {
   //   let modifiedUrl = url;
   //   console.log(token.length);

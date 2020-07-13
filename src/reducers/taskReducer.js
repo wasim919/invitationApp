@@ -38,6 +38,13 @@ const taskReducer = (state = initialState, action) => {
         ...state,
         userPosts: action.payload.posts,
       };
+    case 'DELETE_POST':
+      const index = action.payload;
+      state.userPosts.splice(index, 1);
+      return {
+        ...state,
+        userPosts: [...state.userPosts],
+      };
     case 'REGISTER':
       return {
         ...state,
