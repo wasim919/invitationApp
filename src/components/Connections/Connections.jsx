@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { remove_follower, remove_following } from '../../api';
 
 export default function Connections({ isFollower }) {
   const userData = useSelector((state) => state.taskReducer.user);
@@ -20,7 +21,7 @@ export default function Connections({ isFollower }) {
       return <li className='list-group-item'>No following yet.</li>;
     }
   }
-  const unFollowUser = (index, id) => {
+  const removeFollower = async (index, id) => {
     console.log(index);
     dispatch({
       type: 'REMOVE_FOLLOWER',
@@ -28,8 +29,15 @@ export default function Connections({ isFollower }) {
         index,
       },
     });
+    try {
+      await remove_follower(id);
+      alert('User removed as follower');
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
   };
-  const removeFollowing = (index, id) => {
+  const removeFollowing = async (index, id) => {
     console.log(index);
     dispatch({
       type: 'REMOVE_FOLLOWING',
@@ -37,6 +45,13 @@ export default function Connections({ isFollower }) {
         index,
       },
     });
+    try {
+      await remove_following(id);
+      alert('user un followed');
+    } catch (error) {
+      alert(error.message);
+      console.log(error.message);
+    }
   };
   return isFollower ? (
     <ul className='list-group'>
@@ -47,7 +62,7 @@ export default function Connections({ isFollower }) {
             className='btn btn-danger btn-lg'
             key={index}
             style={{ float: 'right' }}
-            onClick={(e) => unFollowUser(index, follower.id)}
+            onClick={(e) => removeFollower(index, follower.id)}
           >
             Remove Follower
           </button>

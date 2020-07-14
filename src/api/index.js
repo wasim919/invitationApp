@@ -88,7 +88,7 @@ export const removePost = async (id) => {
   }
 };
 
-export const fetchUsers = async (id) => {
+export const fetchUsers = async () => {
   let modifiedUrl = url;
   let token = JSON.parse(localStorage.getItem('token'));
   let headerToken = `Bearer ${token}`;
@@ -105,6 +105,87 @@ export const fetchUsers = async (id) => {
   }
 };
 
-export const remove_follower = async (id) => {};
+export const fetchUserFollowers = async (id) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/auth/getFollowers`;
+  try {
+    const response = await axios.get(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
 
-export const remove_following = async (id) => {};
+export const fetchUserFollowing = async (id) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/auth/getFollowing`;
+  try {
+    const response = await axios.get(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
+
+export const remove_follower = async (id) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/users/removefollower/${id}`;
+  try {
+    await axios.get(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return true;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
+
+export const follow_user = async (id) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/users/followUser/${id}`;
+  try {
+    await axios.get(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return true;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
+
+export const remove_following = async (id) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/users/removeFollowing/${id}`;
+  try {
+    await axios.get(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return true;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};

@@ -9,7 +9,6 @@ export default function Dashboard() {
   const [userData, setUserData] = useState({});
   const [element, setElement] = useState(<Posts />);
   const dispatch = useDispatch();
-  console.log(element);
   useEffect(() => {
     (async function () {
       try {
@@ -36,7 +35,7 @@ export default function Dashboard() {
         console.log(error.message);
       }
     })();
-  }, []);
+  }, [element]);
   const posts = useSelector((state) => state.taskReducer.userPosts);
   let followersLen = 0;
   let followingLen = 0;
@@ -56,8 +55,6 @@ export default function Dashboard() {
   } else {
     followingLen = userData.following.length;
   }
-  console.log(userData);
-  console.log(posts);
   return (
     <div className='container'>
       <h2>Hi {userData.username}, Welcome to the dashboard</h2>
@@ -94,74 +91,6 @@ export default function Dashboard() {
         </button>
       </div>
       {element}
-      {/* <ul className='nav nav-tabs' id='myTab' role>
-        <li className='nav-item'>
-          <a
-            href='#posts'
-            className='nav-link active'
-            id='posts-tab'
-            data-toggle='tab'
-            role='tab'
-            aria-controls='posts'
-            aria-selected='true'
-          >
-            Posts
-          </a>
-        </li>
-        <li className='nav-item'>
-          <a
-            className='nav-link'
-            id='followers-tab'
-            data-toggle='tab'
-            href='#followers'
-            role='tab'
-            aria-controls='followers'
-            aria-selected='false'
-          >
-            Followers
-          </a>
-        </li>
-        <li className='nav-item'>
-          <a
-            href='#following'
-            className='nav-link'
-            id='following-tab'
-            data-toggle='tab'
-            href='#following'
-            role='tab'
-            aria-controls='following'
-            aria-selected='false'
-          >
-            Following
-          </a>
-        </li>
-      </ul>
-      <div class='tab-content' id='myTabContent'>
-        <div
-          class='tab-pane fade show active'
-          id='posts'
-          role='tabpanel'
-          aria-labelledby='posts-tab'
-        >
-          <Posts />
-        </div>
-        <div
-          class='tab-pane fade'
-          id='followers'
-          role='tabpanel'
-          aria-labelledby='followers-tab'
-        >
-          <Connections follower={true} />
-        </div>
-        <div
-          class='tab-pane fade'
-          id='following'
-          role='tabpanel'
-          aria-labelledby='following-tab'
-        >
-          <Connections follower={false} />
-        </div>
-      </div> */}
     </div>
   );
 }
