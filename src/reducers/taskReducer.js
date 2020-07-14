@@ -8,12 +8,14 @@ const initialState = {
   token: '',
   user: {},
   isLogged: false,
+  users: [],
   userPosts: [],
   userFollowingPosts: [],
   nextId: 0,
 };
 
 const taskReducer = (state = initialState, action) => {
+  let index;
   switch (action.type) {
     case 'LOGIN':
       localStorage.setItem('isLogged', JSON.stringify(action.payload.isLogged));
@@ -33,17 +35,36 @@ const taskReducer = (state = initialState, action) => {
           following: action.payload.following,
         },
       };
+    case 'SET_USERS':
+      return {
+        ...state,
+        users: action.payload.users,
+      };
     case 'SET_USER_POSTS':
       return {
         ...state,
         userPosts: action.payload.posts,
       };
     case 'DELETE_POST':
-      const index = action.payload;
+      index = action.payload;
       state.userPosts.splice(index, 1);
       return {
         ...state,
         userPosts: [...state.userPosts],
+      };
+    case 'REMOVE_FOLLOWER':
+      index = action.payload;
+      state.user.followers.splice(index, 1);
+      return {
+        ...state,
+        user: { ...state.user },
+      };
+    case 'REMOVE_FOLLOWING':
+      index = action.payload;
+      state.user.following.splice(index, 1);
+      return {
+        ...state,
+        user: { ...state.userPosts },
       };
     case 'REGISTER':
       return {

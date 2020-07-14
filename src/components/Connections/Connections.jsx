@@ -1,31 +1,56 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Connections({ isFollower }) {
   const userData = useSelector((state) => state.taskReducer.user);
-
+  const dispatch = useDispatch();
   if (userData === undefined) {
     return <h3>No follower</h3>;
   }
-  if (isFollower && userData.followers.length === 0) {
-    return <li className='list-group-item'>No follower yet.</li>;
+  if (isFollower) {
+    if (userData.followers === undefined || userData.followers.length === 0) {
+      return <li className='list-group-item'>No follower yet.</li>;
+    }
   }
-  if (!isFollower && userData.following.length === 0) {
-    return <li className='list-group-item'>No following yet.</li>;
+  if (!isFollower) {
+    if (
+      userData.following === undefined ||
+      (userData.following !== undefined && userData.following.length === 0)
+    ) {
+      return <li className='list-group-item'>No following yet.</li>;
+    }
   }
+  const unFollowUser = (index, id) => {
+    console.log(index);
+    dispatch({
+      type: 'REMOVE_FOLLOWER',
+      payload: {
+        index,
+      },
+    });
+  };
+  const removeFollowing = (index, id) => {
+    console.log(index);
+    dispatch({
+      type: 'REMOVE_FOLLOWING',
+      payload: {
+        index,
+      },
+    });
+  };
   return isFollower ? (
     <ul className='list-group'>
       {userData.followers.map((follower, index) => (
         <li className='list-group-item'>
           <span>{follower.username}</span>
-          {/* <button
+          <button
             className='btn btn-danger btn-lg'
             key={index}
             style={{ float: 'right' }}
-            onClick={(e) => deletePost(index, userPost._id)}
+            onClick={(e) => unFollowUser(index, follower.id)}
           >
-            x
-          </button> */}
+            Remove Follower
+          </button>
         </li>
       ))}
     </ul>
@@ -34,14 +59,14 @@ export default function Connections({ isFollower }) {
       {userData.following.map((following, index) => (
         <li className='list-group-item'>
           {following.username}
-          {/* <button
+          <button
             className='btn btn-danger btn-lg'
             key={index}
             style={{ float: 'right' }}
-            onClick={(e) => deletePost(index, userPost._id)}
+            onClick={(e) => removeFollowing(index, following.id)}
           >
-            x
-          </button> */}
+            Remove Following
+          </button>
         </li>
       ))}
     </ul>

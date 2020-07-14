@@ -87,3 +87,24 @@ export const removePost = async (id) => {
     throw new Error('Not Authorized');
   }
 };
+
+export const fetchUsers = async (id) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/users`;
+  try {
+    const response = await axios.get(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
+
+export const remove_follower = async (id) => {};
+
+export const remove_following = async (id) => {};

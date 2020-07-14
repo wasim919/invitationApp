@@ -37,6 +37,10 @@ export default function Register() {
         email,
         password,
       });
+      setUserName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
       isLogged = true;
       dispatch({
         type: 'REGISTER',
@@ -97,7 +101,7 @@ export default function Register() {
                   className={cx('form-control', styles.inputfield)}
                   placeholder='Re-enter your password'
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  value={password}
+                  value={confirmPassword}
                 />
               </div>
               <div className={styles.submitButton}>

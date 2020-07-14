@@ -11,3 +11,4 @@ export { default as Post } from './Post/Post';
 export { default as CreatePost } from './CreatePost/CreatePost';
 export { default as NotFound } from './NotFound/NotFound';
 export { default as Connections } from './Connections/Connections';
+export { default as Users } from './Users/Users';
