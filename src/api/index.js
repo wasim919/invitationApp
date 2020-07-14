@@ -71,6 +71,23 @@ export const fetchPosts = async (id) => {
   }
 };
 
+export const fetchAllPosts = async () => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/posts`;
+  try {
+    const response = await axios.get(modifiedUrl, {
+      headers: {
+        Authorization: headerToken,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
+
 export const removePost = async (id) => {
   let modifiedUrl = url;
   let token = JSON.parse(localStorage.getItem('token'));
@@ -169,6 +186,27 @@ export const follow_user = async (id) => {
     });
     return true;
   } catch (err) {
+    throw new Error('Not Authorized');
+  }
+};
+
+export const createPost = async (body) => {
+  let modifiedUrl = url;
+  let token = JSON.parse(localStorage.getItem('token'));
+  let headerToken = `Bearer ${token}`;
+  modifiedUrl = `${url}/posts`;
+  try {
+    await axios.post(
+      modifiedUrl,
+      { text: body },
+      {
+        headers: {
+          Authorization: headerToken,
+        },
+      }
+    );
+    return true;
+  } catch (error) {
     throw new Error('Not Authorized');
   }
 };

@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Logout } from '../../components';
 import { fetchLoggedUser, fetchPosts } from '../../api';
-import { Posts, Connections, Users } from '../../components';
+import {
+  Posts,
+  Connections,
+  Users,
+  CreatePost,
+  Logout,
+  UserFeed,
+} from '../../components';
 import styles from './Dashboard.module.css';
 
 export default function Dashboard() {
@@ -10,6 +16,7 @@ export default function Dashboard() {
   const [element, setElement] = useState(<Posts />);
   const dispatch = useDispatch();
   useEffect(() => {
+    let mounted = true;
     (async function () {
       try {
         const {
@@ -48,7 +55,7 @@ export default function Dashboard() {
   if (userData.followers === undefined) {
     followersLen = 0;
   } else {
-    followersLen = userData.following.length;
+    followersLen = userData.followers.length;
   }
   if (userData.following === undefined) {
     followingLen = 0;
@@ -69,7 +76,12 @@ export default function Dashboard() {
         >
           Posts
         </button>
-        <button className='btn btn-lg btn-primary'>Feed</button>
+        <button
+          onClick={(e) => setElement(<UserFeed />)}
+          className='btn btn-lg btn-primary'
+        >
+          Feed
+        </button>
         <button
           onClick={(e) => setElement(<Connections isFollower={true} />)}
           className='btn btn-lg btn-primary'
@@ -82,7 +94,12 @@ export default function Dashboard() {
         >
           Following
         </button>
-        <button className='btn btn-lg btn-primary'>Create Post</button>
+        <button
+          onClick={(e) => setElement(<CreatePost />)}
+          className='btn btn-lg btn-primary'
+        >
+          Create Post
+        </button>
         <button
           onClick={(e) => setElement(<Users />)}
           className='btn btn-lg btn-primary'

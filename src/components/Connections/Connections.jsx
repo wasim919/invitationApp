@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { remove_follower, remove_following } from '../../api';
 
 export default function Connections({ isFollower }) {
-  const userData = useSelector((state) => state.taskReducer.user);
+  const [updated, setUpdated] = useState(0);
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.taskReducer.user);
+  useEffect(() => {}, [userData]);
   if (userData === undefined) {
     return <h3>No follower</h3>;
   }
@@ -22,7 +24,6 @@ export default function Connections({ isFollower }) {
     }
   }
   const removeFollower = async (index, id) => {
-    console.log(index);
     dispatch({
       type: 'REMOVE_FOLLOWER',
       payload: {
@@ -31,14 +32,15 @@ export default function Connections({ isFollower }) {
     });
     try {
       await remove_follower(id);
-      alert('User removed as follower');
+      setUpdated(updated + 1);
+      return;
     } catch (error) {
       alert(error.message);
       console.log(error.message);
+      return;
     }
   };
   const removeFollowing = async (index, id) => {
-    console.log(index);
     dispatch({
       type: 'REMOVE_FOLLOWING',
       payload: {
@@ -47,16 +49,19 @@ export default function Connections({ isFollower }) {
     });
     try {
       await remove_following(id);
-      alert('user un followed');
+      setUpdated(updated + 1);
+      return;
     } catch (error) {
       alert(error.message);
       console.log(error.message);
+      return;
     }
   };
+
   return isFollower ? (
     <ul className='list-group'>
       {userData.followers.map((follower, index) => (
-        <li className='list-group-item'>
+        <li className='list-group-item' key={index + 1}>
           <span>{follower.username}</span>
           <button
             className='btn btn-danger btn-lg'
@@ -72,7 +77,7 @@ export default function Connections({ isFollower }) {
   ) : (
     <ul className='list-group'>
       {userData.following.map((following, index) => (
-        <li className='list-group-item'>
+        <li className='list-group-item' key={index + 1}>
           {following.username}
           <button
             className='btn btn-danger btn-lg'

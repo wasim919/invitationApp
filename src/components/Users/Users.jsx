@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchUserFollowers,
   fetchUserFollowing,
@@ -10,11 +9,8 @@ import {
 
 export default function Users() {
   const [noConnectionUsers, setNoConnectionUsers] = useState([]);
-  const dispatch = useDispatch();
   useEffect(() => {
     (async function () {
-      let foll = [];
-      let folling = [];
       try {
         const response = await fetchLoggedUser();
 
@@ -62,14 +58,15 @@ export default function Users() {
           }
         }
         setNoConnectionUsers(newConnections);
-        console.log(newConnections);
+        return;
       } catch (error) {
         alert(error.message);
         console.log(error.message);
+        return;
       }
     })();
   }, []);
-  const follow = async (id) => {
+  const followUser = async (id) => {
     try {
       await follow_user(id);
       return;
@@ -88,7 +85,7 @@ export default function Users() {
             className='btn btn-danger btn-lg'
             key={index}
             style={{ float: 'right' }}
-            onClick={(e) => follow(user._id)}
+            onClick={(e) => followUser(user._id)}
           >
             Follow
           </button>

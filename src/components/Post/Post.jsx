@@ -13,13 +13,14 @@ export default function Post({ userPost, index }) {
           index,
         },
       });
+      return;
       // console.log(response);
       // alert('Post has been deleted');
     } catch (error) {
       alert(error.message);
       console.log(error.message);
+      return;
     }
-    console.log(index, id);
   };
   return (
     <>
